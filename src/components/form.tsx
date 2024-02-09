@@ -10,7 +10,7 @@ export function Form() {
     event.preventDefault();
     
     try { 
-      const res = axios.post('https://typescrpt-srvless.netlify.app/.netlify/functions/submit', {
+       axios.post('https://typescrpt-srvless.netlify.app/.netlify/functions/submit', {
         name,
         favoriteColor,
       }).then((res) => {
