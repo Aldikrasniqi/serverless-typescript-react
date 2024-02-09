@@ -11,4 +11,4 @@ export const handler: Handler = async (event) => {
       message: `Hello ${name}, your favorite color is ${favoriteColor}`
      }),
   };
-};
+};  
