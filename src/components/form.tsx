@@ -1,44 +1,29 @@
 import React,{ useState } from 'react';
 import styles from './form.module.css';
-import axios from 'axios';
+import { useSubmit } from '../hooks/useSubmit';
 export function Form() {
   const [name, setName] = useState('');
   const [favoriteColor, setFavoriteColor] = useState('');
-  const [response, setResponse] = useState();
-  const headers = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': 'Content-Type',
-    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE'
-  };
+
+  const { handleSubmit, response } = useSubmit();
+
   
-  async function handleSubmit(event: React.SyntheticEvent<HTMLFormElement>) {
+  async function handleFormSubmit(event: React.SyntheticEvent<HTMLFormElement>) {
     event.preventDefault();
     
-    try { 
-      axios.post('https://typescrpt-srvless.netlify.app/.netlify/functions/submit', {
-        name,
-        favoriteColor,
-      },
-      {
-        headers: headers
-      }
-      
-      ).then((res) => {
-        setResponse(res.data);
+    handleSubmit(name, favoriteColor)
+      .then(() => {
         setName('');
         setFavoriteColor('');
-      }).catch((error) => {
-        console.error(error);
       })
-
-    } catch (error) {
-      console.error(error);
-    }
+      .catch((error) => {
+        console.error('Form submission error:', error);
+      });
   }
   return (
     <>
       <pre>{JSON.stringify(response, null, 2)}</pre>
-      <form className={styles.form} onSubmit={handleSubmit}>
+      <form className={styles.form} onSubmit={handleFormSubmit}>
         <label htmlFor="name" className={styles.label}>Name:</label>
         <input
           name="name"
