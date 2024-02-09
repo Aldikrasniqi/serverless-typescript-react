@@ -5,15 +5,25 @@ export function Form() {
   const [name, setName] = useState('');
   const [favoriteColor, setFavoriteColor] = useState('');
   const [response, setResponse] = useState();
-
+  const headers = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE'
+  };
+  
   async function handleSubmit(event: React.SyntheticEvent<HTMLFormElement>) {
     event.preventDefault();
     
     try { 
-       axios.post('https://typescrpt-srvless.netlify.app/.netlify/functions/submit', {
+      axios.post('https://typescrpt-srvless.netlify.app/.netlify/functions/submit', {
         name,
         favoriteColor,
-      }).then((res) => {
+      },
+      {
+        headers: headers
+      }
+      
+      ).then((res) => {
         setResponse(res.data);
         setName('');
         setFavoriteColor('');
