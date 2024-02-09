@@ -20,7 +20,7 @@ export function Form() {
       }).catch((error) => {
         console.error(error);
       })
-
+      return res;
     } catch (error) {
       console.error(error);
     }
