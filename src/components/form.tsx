@@ -10,18 +10,17 @@ export function Form() {
     event.preventDefault();
     
     try { 
-      axios.post('/.netlify/functions/submit', {
+      const res = axios.post('https://typescrpt-srvless.netlify.app/.netlify/functions/submit', {
         name,
         favoriteColor,
       }).then((res) => {
-        setResponse(res.data.message);
+        setResponse(res.data);
         setName('');
         setFavoriteColor('');
       }).catch((error) => {
         console.error(error);
       })
 
-      
     } catch (error) {
       console.error(error);
     }
